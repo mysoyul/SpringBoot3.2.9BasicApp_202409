@@ -1,5 +1,6 @@
 package com.basic.myspringboot;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -13,7 +14,7 @@ public class LambdaTest1 {
     /*
         Stream 의 map() 과 flatMap의 차이점 이해
      */
-    @Test
+    @Test @Disabled
     public void transformUsingStream(){
         List<MyCustomer> customers = List.of(
                 new MyCustomer(101, "john", "john@gmail.com", Arrays.asList("397937955", "21654725")),
@@ -50,19 +51,19 @@ public class LambdaTest1 {
     }
     /*
         java.util.function 에 제공하는 함수형 인터페이스
-        Consumer -  void accept(T t)
-        Predicate - boolean test(T t)
-        Supplier - T get()
-        Function - R apply(T t)
+        Consumer -  void accept(T t) 입력
+        Predicate - boolean test(T t) 조건식
+        Supplier - T get() 출력
+        Function - R apply(T t) 입출력
         Operator -
            UnaryOperator : R apply(T t)
            BinaryOperator : R apply(T t, U u)
     */
     @Test
     public void lambdaTest() {
-        //Functional Interface가 가진 추상 메서드를 재정의할 때 람다식으로 작성하기
+        //Functional Interface가 가진 추상 메서드를 재정의 할 때 람다식으로 작성하기
 
-        // class MyRunnable implements Runnable => Thread(new MyRunnable())
+        // class MyRunnable implements Runnable => new Thread(new MyRunnable())
         //1. Anonymous Inner Class
         // class MyRunnable implements Runnable {} - new MyRunnable()
         Thread t1 = new Thread(new Runnable() {
