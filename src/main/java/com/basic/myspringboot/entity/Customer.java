@@ -3,8 +3,12 @@ package com.basic.myspringboot.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "customers")
 @Getter
 @Setter
 public class Customer {
@@ -12,9 +16,13 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true)
+    @Column(name="cust_id", unique = true, nullable = false)
     private String customerId;
 
-    @Column
+    @Column(name = "cust_name", nullable = false)
     private String customerName;
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
