@@ -2,6 +2,8 @@ package com.basic.myspringboot.runner;
 
 import com.basic.myspringboot.config.MyBootProperties;
 import com.basic.myspringboot.config.vo.CustomerVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -26,27 +28,31 @@ public class MyRunner implements ApplicationRunner {
     @Autowired
     private CustomerVO customer;
 
+    private final Logger logger = LoggerFactory.getLogger(MyRunner.class);
+
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("Profiles CustomerVO Mode = " + customer.getMode());
-        System.out.println("MyBootProperties getFullName = " + properties.getFullName());
-        System.out.println("MyBootProperties getAge = " + properties.getAge());
+        System.out.println("Logger 구현 클래스명 = " + logger.getClass().getName());
 
-        System.out.println("${myboot.name} = " + name);
-        System.out.println("${myboot.age} = " + age);
-        System.out.println("${myboot.fullName} = " + environment.getProperty("myboot.fullName"));
+        logger.info("Profiles CustomerVO Mode = {}", customer.getMode());
+        logger.info("MyBootProperties getFullName = {}", properties.getFullName());
+        logger.info("MyBootProperties getAge = {}", properties.getAge());
 
-        System.out.println("Program Arguments foo : " + args.containsOption("foo"));
-        System.out.println("VM Arguments bar : " + args.containsOption("bar"));
+        logger.info("${myboot.name} = {}", name);
+        logger.info("${myboot.age} = {}", age);
+        logger.info("${myboot.fullName} = {}", environment.getProperty("myboot.fullName"));
+
+        logger.debug("Program Arguments foo : " + args.containsOption("foo"));
+        logger.debug("VM Arguments bar : " + args.containsOption("bar"));
 
 
         args.getOptionNames() //Set<String>
                 //forEach(Consumer) void accept(T t)
-                .forEach(name -> System.out.println("아규먼트 Name = " + name));
+                .forEach(name -> logger.info("아규먼트 Name = " + name));
                 //.forEach(System.out::println);
 
         if(args.containsOption("spring.application.name")){
             args.getOptionValues("spring.application.name")
-                    .forEach(value -> System.out.println("spring.application.name Value = " + value));
+                    .forEach(value -> logger.debug("spring.application.name Value = " + value));
         }
 
     }
