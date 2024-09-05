@@ -1,6 +1,7 @@
 package com.basic.myspringboot.runner;
 
 import com.basic.myspringboot.config.MyBootProperties;
+import com.basic.myspringboot.config.vo.CustomerVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -22,7 +23,11 @@ public class MyRunner implements ApplicationRunner {
     @Autowired
     private MyBootProperties properties;
 
+    @Autowired
+    private CustomerVO customer;
+
     public void run(ApplicationArguments args) throws Exception {
+        System.out.println("Profiles CustomerVO Mode = " + customer.getMode());
         System.out.println("MyBootProperties getFullName = " + properties.getFullName());
         System.out.println("MyBootProperties getAge = " + properties.getAge());
 
