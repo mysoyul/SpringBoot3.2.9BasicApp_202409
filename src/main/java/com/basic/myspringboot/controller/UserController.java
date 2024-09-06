@@ -5,6 +5,7 @@ import com.basic.myspringboot.exception.BusinessException;
 import com.basic.myspringboot.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +46,13 @@ public class UserController {
         User user = getUserByEmail(email);
         user.setName(userDetail.getName());
         return userRepository.save(user);
+    }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<?> deleteUser(@PathVariable String email) {
+        User user = getUserByEmail(email);
+        userRepository.delete(user);
+        return ResponseEntity.ok(email + " User Deleted OK!");
     }
 
 }
