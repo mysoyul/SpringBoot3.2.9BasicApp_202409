@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
@@ -29,5 +31,9 @@ public class UserController {
                 .orElseThrow(() -> new BusinessException(email + " User Not Found", HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
 
 }
