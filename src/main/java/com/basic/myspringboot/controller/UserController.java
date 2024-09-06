@@ -26,7 +26,7 @@ public class UserController {
     @GetMapping("/{email}")
     public User getUser(@PathVariable String email){
         return userRepository.findByEmail(email)   //Optional<User>
-                .orElseThrow(() -> new BusinessException("User Not Found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(email + " User Not Found", HttpStatus.NOT_FOUND));
     }
 
 
