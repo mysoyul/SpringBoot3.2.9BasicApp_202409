@@ -27,6 +27,10 @@ public class UserController {
 
     @GetMapping("/{email}")
     public User getUser(@PathVariable String email){
+        return getUserByEmail(email);
+    }
+
+    private User getUserByEmail(String email) {
         return userRepository.findByEmail(email)   //Optional<User>
                 .orElseThrow(() -> new BusinessException(email + " User Not Found", HttpStatus.NOT_FOUND));
     }
@@ -38,8 +42,7 @@ public class UserController {
 
     @PatchMapping("/{email}")
     public User updateUser(@PathVariable String email, @RequestBody User userDetail) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException(email + " User Not Found", HttpStatus.NOT_FOUND));
+        User user = getUserByEmail(email);
         user.setName(userDetail.getName());
         return userRepository.save(user);
     }
