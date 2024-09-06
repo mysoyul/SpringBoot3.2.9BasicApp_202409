@@ -14,10 +14,8 @@ public class UserInfoUserDetails implements UserDetails {
     private String email;
     private String password;
     private List<GrantedAuthority> authorities;
-    private UserInfo userInfo;
 
     public UserInfoUserDetails(UserInfo userInfo) {
-        this.userInfo = userInfo;
         this.email=userInfo.getEmail();
         this.password=userInfo.getPassword();
         this.authorities= Arrays.stream(userInfo.getRoles().split(","))
@@ -39,10 +37,6 @@ public class UserInfoUserDetails implements UserDetails {
     public String getUsername() {
         return email;
     }
-    
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }    
 
     @Override
     public boolean isAccountNonExpired() {
