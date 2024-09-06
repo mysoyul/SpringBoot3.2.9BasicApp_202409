@@ -1,6 +1,7 @@
 package com.basic.myspringboot.repository;
 
 import com.basic.myspringboot.entity.Customer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +19,20 @@ class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
 
+
     @Test
+    @Rollback(value = false)
+    public void customer_update() throws Exception {
+        Optional<Customer> optional = customerRepository.findByCustomerId("A001");
+        if(optional.isPresent()){
+            Customer customer = optional.get();
+            customer.setCustomerName("스프링 FW");
+        }
+    }
+
+
+    @Test
+    @Disabled
     @Rollback(value = false)
     public void customer() throws Exception {
         //등록

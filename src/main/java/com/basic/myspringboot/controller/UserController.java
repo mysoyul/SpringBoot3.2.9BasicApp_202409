@@ -36,4 +36,12 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    @PatchMapping("/{email}")
+    public User updateUser(@PathVariable String email, @RequestBody User userDetail) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(email + " User Not Found", HttpStatus.NOT_FOUND));
+        user.setName(userDetail.getName());
+        return userRepository.save(user);
+    }
+
 }
