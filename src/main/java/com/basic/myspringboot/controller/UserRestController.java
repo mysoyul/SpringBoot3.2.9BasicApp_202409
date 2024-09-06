@@ -55,4 +55,10 @@ public class UserRestController {
         return ResponseEntity.ok(email + " User Deleted OK!");
     }
 
+    @GetMapping("/welcome")
+    public String welcome() {
+        return "Welcome this endpoint is not secure";
+    }
+
+
 }
